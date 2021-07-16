@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "cb5e2ceb-d061-4da2-b417-cd87fa18ea55",
+		"name": "ReqresUsers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ListUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"page\");",
+							"});",
+							"pm.test(\"Validate page number\"), function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.page).to.eql(\"{{pageNumber}}\");",
+							"}",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"const response = pm.response.json();",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.page).to.be.a(\"number\");",
+							"    pm.expect(response.per_page).to.be.a(\"number\");",
+							"    pm.expect(response.total).to.be.a(\"number\");",
+							"    pm.expect(response.total_pages).to.be.a(\"number\");",
+							"    pm.expect(response.data).to.be.an(\"array\");",
+							"    pm.expect(response.data[0].id).to.be.a(\"number\");",
+							"    pm.expect(response.data[0].email).to.be.a(\"string\");",
+							"    pm.expect(response.data[0].first_name).to.be.a(\"string\");",
+							"    pm.expect(response.data[0].last_name).to.be.a(\"string\");",
+							"    pm.expect(response.data[0].avatar).to.be.a(\"string\");",
+							"    pm.expect(response.support).to.be.an(\"object\");",
+							"    pm.expect(response.support.url).to.be.a(\"string\");",
+							"    pm.expect(response.support.text).to.be.an(\"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page={{pageNumber}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{pageNumber}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"pm.test(\"Validate user id\"), function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.id).to.eql(\"{{Id}}\");",
+							"}",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"const response = pm.response.json();",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.data).to.be.an(\"object\");",
+							"    pm.expect(response.data.id).to.be.a(\"number\");",
+							"    pm.expect(response.data.email).to.be.a(\"string\");",
+							"    pm.expect(response.data.first_name).to.be.a(\"string\");",
+							"    pm.expect(response.data.last_name).to.be.a(\"string\");",
+							"    pm.expect(response.data.avatar).to.be.a(\"string\");",
+							"    pm.expect(response.support).to.be.an(\"object\");",
+							"    pm.expect(response.support.url).to.be.a(\"string\");",
+							"    pm.expect(response.support.text).to.be.an(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{Id}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleUserNotFound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string Not Found\", function () {",
+							"    pm.response.to.have.status(\"Not Found\");",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body();",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/23",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"Created\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"orpheus\",\n    \"job\": \"leader\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"updatedAt\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"orpheus\",\n    \"job\": \"zion resident\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"No Content\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDelayedResponse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 3200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(3200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?delay=3",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "delay",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "pageNumber",
+			"value": "2"
+		},
+		{
+			"key": "Id",
+			"value": "2"
+		}
+	]
+}

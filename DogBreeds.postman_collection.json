@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "7d42b895-8abe-4056-a181-d1719bfbb01e",
+		"name": "DogBreeds",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body contains string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"poodle\");",
+							"});",
+							"",
+							"pm.test(\"validate poodle breeds\", function () {",
+							"    var jsonData = pm.response.json();",
+							"   console.log(jsonData.message.poodle[0]);",
+							"    pm.expect(jsonData.message.poodle[0]).to.eql(\"miniature\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Validate status is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"const response = pm.response.json();",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.message).to.be.an(\"object\");",
+							"    pm.expect(response.message.australian).to.be.an(\"array\");",
+							"    pm.expect(response.message.poodle).to.be.an(\"array\");",
+							"    pm.expect(response.status).to.be.a(\"string\");",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dog.ceo/api/breeds/list/all",
+					"protocol": "https",
+					"host": [
+						"dog",
+						"ceo"
+					],
+					"path": [
+						"api",
+						"breeds",
+						"list",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,671 @@
+{
+	"info": {
+		"_postman_id": "8be62c47-4b87-43e6-ab06-af936eece3f3",
+		"name": "Petstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"username\": \"{{username}}\",\n  \"firstName\": \"tsr\",\n  \"lastName\": \"ing\",\n  \"email\": \"str.ing@gmail.com\",\n  \"password\": \"string\",\n  \"phone\": \"8899007766\",\n  \"userStatus\": 0\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"const response = pm.response.json();",
+							"console.log(response.password);",
+							"pm.collectionVariables.set(\"password\", response.password);",
+							"pm.collectionVariables.set(\"userId\", response.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/:username",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/login/?username={{username}}&password={{password}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"login",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": {{userId}},\n  \"username\": \"{{username}}\",\n  \"firstName\": \"tsr\",\n  \"lastName\": \"ing\",\n  \"email\": \"tsr.ing@gmail.com\",\n  \"password\": \"string\",\n  \"phone\": \"8899007777\",\n  \"userStatus\": 0\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user/:username",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"pm.test(\"Validate status\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"const response = pm.response.json();",
+							"console.log(response.id);",
+							"pm.collectionVariables.set(\"petId\", response.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/pet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/pet/:petId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"pet",
+						":petId"
+					],
+					"variable": [
+						{
+							"key": "petId",
+							"value": "{{petId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": {{petId}},\n    \"category\": {\n        \"id\": 12111,\n        \"name\": \"cat\"\n    },\n    \"name\": \"doggie\",\n    \"photoUrls\": [\n        \"www.google.com/dog\"\n    ],\n    \"tags\": [\n        {\n            \"id\": 121,\n            \"name\": \"catdog\"\n        }\n    ],\n    \"status\": \"available\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/pet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStoreInventory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/store/inventory",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"inventory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostPetOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"const response = pm.response.json();",
+							"console.log(response.id);",
+							"pm.collectionVariables.set(\"orderId\", response.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"petId\": {{petId}},\n  \"quantity\": 1,\n  \"shipDate\": \"2021-09-09T06:50:01.367Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/store/order",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/store/order/:orderId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"order",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/store/order/:orderId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"store",
+						"order",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/:petId",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						":petId"
+					],
+					"variable": [
+						{
+							"key": "petId",
+							"value": "{{petId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserLogout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/:username",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "petId",
+			"value": ""
+		},
+		{
+			"key": "url",
+			"value": "https://petstore.swagger.io/v2"
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		}
+	]
+}

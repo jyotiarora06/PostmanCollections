@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "dfdeb3a1-a84c-41b9-aa95-6524b47691fd",
+		"name": "JsonTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetIP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body contains string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ip\");",
+							"});",
+							"pm.test(\"Validate ip value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.ip).to.eql(\"103.217.166.216\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Validate status is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.ip).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ip.jsontest.com/",
+					"protocol": "http",
+					"host": [
+						"ip",
+						"jsontest",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetEcho",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"key\");",
+							"});",
+							"pm.test(\"Validate key value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.key).to.eql(\"value\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.insertkeyhere).to.be.a(\"string\");",
+							"    pm.expect(response.key).to.be.a(\"string\");",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://echo.jsontest.com/insertkeyhere/insertvaluehere/key/value",
+					"protocol": "http",
+					"host": [
+						"echo",
+						"jsontest",
+						"com"
+					],
+					"path": [
+						"insertkeyhere",
+						"insertvaluehere",
+						"key",
+						"value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"date\");",
+							"});",
+							"",
+							"",
+							"const response = pm.response.json();",
+							"console.log(response.date);",
+							"var today = new Date();",
+							"console.log(today);",
+							"",
+							"var dd = today.getDate().toString();",
+							"console.log(dd.length );",
+							"dd = dd.length > 1 ? dd : '0' + dd;",
+							"console.log(dd);",
+							"var MM = (1+ today.getMonth()).toString();",
+							"MM = MM.length > 1 ? MM : '0' + MM;",
+							"var yyyy = today.getFullYear();",
+							"today = dd+'-'+MM+'-'+yyyy;",
+							"",
+							"console.log(today);",
+							"pm.test(\"Validate date value\", function () {",
+							"    var isCurrentDate = false;",
+							"    if(response.date == today){",
+							"        isCurrentDate =true;",
+							"    }",
+							"    if(!isCurrentDate){",
+							"\t    pm.expect.fail();",
+							"    }",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.date).to.be.a(\"string\");",
+							"    pm.expect(response.milliseconds_since_epoch).to.be.a(\"number\");",
+							"    pm.expect(response.time).to.be.a(\"string\");",
+							"    ",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://date.jsontest.com/",
+					"protocol": "http",
+					"host": [
+						"date",
+						"jsontest",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"validate\");",
+							"});",
+							"pm.test(\"validate value is true\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.validate).to.eql(true);",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code name has string OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"const response = pm.response.json();",
+							"pm.test(\"Test datatype of the response\",() => {",
+							"    pm.expect(response).to.be.an(\"object\");",
+							"    pm.expect(response.size).to.be.a(\"number\");",
+							"    pm.expect(response.parse_time_nanoseconds).to.be.a(\"number\");",
+							"    pm.expect(response.object_or_array).to.be.a(\"string\");",
+							"    pm.expect(response.validate).to.be.a(\"boolean\");",
+							"    pm.expect(response.empty).to.be.a(\"boolean\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://validate.jsontest.com/?json=%5BJSON-code-to-validate%5D",
+					"protocol": "http",
+					"host": [
+						"validate",
+						"jsontest",
+						"com"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "json",
+							"value": "%5BJSON-code-to-validate%5D"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
